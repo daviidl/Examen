@@ -136,8 +136,7 @@ public class GestionGastos {
     public static void main(String[] args) {
         GestionGastos gestionGastos = new GestionGastos();
         Scanner scanner = new Scanner(System.in);
-
-        while (true) {
+while (true) {
             System.out.println("\nMenu:");
             System.out.println("1. Agregar gasto");
             System.out.println("2. Mostrar gastos");
@@ -148,31 +147,43 @@ public class GestionGastos {
             int opcion = scanner.nextInt();
             scanner.nextLine(); //Salto de linea desùes del numero
 
-            switch (opcion) {
-                case 1:
-                    System.out.print("Ingrese la categoría del gasto: ");
-                    String categoria = scanner.nextLine();
-                    System.out.print("Ingrese el monto del gasto: $");
-                    double monto = scanner.nextDouble();
-                    scanner.nextLine(); //Salto de linea desùes del numero
-                    System.out.print("Ingrese la descripción del gasto: ");
-                    String descripcion = scanner.nextLine();
-                    gestionGastos.agregarGasto(categoria, monto, descripcion);
-                    break;
-                case 2:
-                    gestionGastos.mostrarGastos();
-                    break;
-                case 3:
-                    System.out.print("Ingrese la descripción del gasto a eliminar: ");
-                    String descripcionEliminar = scanner.nextLine();
-                    gestionGastos.eliminarGasto(descripcionEliminar);
-                    break;
-                case 4:
-                    System.out.println("Saliendo del programa.");
-                    System.exit(0);
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
+             switch (opcion) {
+            case 1:
+                System.out.print("Ingrese la categoría del gasto: ");
+                String categoria = scanner.nextLine();
+
+                double monto = 0;
+                boolean montoValido = false;
+
+                // Ciclo para asegurarse de que se ingrese un número válido para el monto
+                while (!montoValido) {
+                    try {
+                        System.out.print("Ingrese el monto del gasto: $");
+                        monto = Double.parseDouble(scanner.nextLine());
+                        montoValido = true;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Ingrese un número válido para el monto.");
+                    }
+                }
+
+                System.out.print("Ingrese la descripción del gasto: ");
+                String descripcion = scanner.nextLine();
+                gestionGastos.agregarGasto(categoria, monto, descripcion);
+                break;
+            case 2:
+                gestionGastos.mostrarGastos();
+                break;
+            case 3:
+                System.out.print("Ingrese la descripción del gasto a eliminar: ");
+                String descripcionEliminar = scanner.nextLine();
+                gestionGastos.eliminarGasto(descripcionEliminar);
+                break;
+            case 4:
+                System.out.println("Saliendo del programa.");
+                System.exit(0);
+            default:
+                System.out.println("Opción no válida. Intente de nuevo.");
         }
     }
+}
 }
